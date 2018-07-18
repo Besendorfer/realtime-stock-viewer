@@ -8,12 +8,14 @@ import { CompanyService } from './company/company.service';
 import { LastService } from './last/last.service';
 import { StatsService } from './stats/stats.service';
 import { LogoService } from './logo/logo.service';
+import { QuoteService } from './quote/quote.service';
 
 // interfaces
 import { Company } from './interfaces/company';
 import { LightweightStockQuote } from './interfaces/lightweight-stock-quote';
 import { Stats } from './interfaces/stats';
 import { Logo } from './interfaces/logo';
+import { Quote } from './interfaces/quote';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +27,8 @@ export class IexService {
     private companyService: CompanyService,
     private lastService: LastService,
     private statsService: StatsService,
-    private logoService: LogoService
+    private logoService: LogoService,
+    private quoteService: QuoteService
   ) { }
 
   // List of services needed
@@ -33,7 +36,6 @@ export class IexService {
   // GET /ref-data/symbols (maybe)
   // GET /stock/{symbol}/chart/{range} (maybe)
   // GET /stock/market/list...
-  // GET /stock/{symbol}/quote
 
   getSymbolPrice(symbol: string): Observable<Number> {
     return this.priceService.getSymbolPrice(symbol);
@@ -57,5 +59,9 @@ export class IexService {
 
   getCompanyLogo(symbol: string): Observable<Logo> {
     return this.logoService.getCompanyLogo(symbol);
+  }
+
+  getCompanyQuote(symbol: string): Observable<Quote> {
+    return this.quoteService.getCompanyQuote(symbol);
   }
 }
