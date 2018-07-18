@@ -20,8 +20,8 @@ export class CompanyService {
   getCompanyInfo(symbol: string): Observable<Company> {
     const url = this.companyUrl(symbol);
     return this.http.get<Company>(url)
-            .pipe(
-              // TODO: add error handling
-            );
+                    .pipe(
+                      // TODO: add error handling
+                    );
   }
 }

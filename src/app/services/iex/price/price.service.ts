@@ -19,8 +19,8 @@ export class PriceService {
   getSymbolPrice(symbol: string): Observable<Number> {
     const url = this.priceUrl(symbol);
     return this.http.get<Number>(url)
-            .pipe(
-              // TODO: add error handling
-            );
+                    .pipe(
+                      // TODO: add error handling
+                    );
   }
 }
