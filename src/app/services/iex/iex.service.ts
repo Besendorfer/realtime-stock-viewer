@@ -9,6 +9,7 @@ import { LastService } from './last/last.service';
 import { StatsService } from './stats/stats.service';
 import { LogoService } from './logo/logo.service';
 import { QuoteService } from './quote/quote.service';
+import { ListService } from './list/list.service';
 
 // interfaces
 import { Company } from './interfaces/company';
@@ -28,14 +29,14 @@ export class IexService {
     private lastService: LastService,
     private statsService: StatsService,
     private logoService: LogoService,
-    private quoteService: QuoteService
+    private quoteService: QuoteService,
+    private listService: ListService
   ) { }
 
   // List of services needed
   // GET /tops (maybe) (use the filter parameter?)
   // GET /ref-data/symbols (maybe)
   // GET /stock/{symbol}/chart/{range} (maybe)
-  // GET /stock/market/list...
 
   getSymbolPrice(symbol: string): Observable<Number> {
     return this.priceService.getSymbolPrice(symbol);
@@ -63,5 +64,9 @@ export class IexService {
 
   getCompanyQuote(symbol: string): Observable<Quote> {
     return this.quoteService.getCompanyQuote(symbol);
+  }
+
+  getTop10Symbols(listName: string): Observable<Quote[]> {
+    return this.listService.getTop10Symbols(listName);
   }
 }
