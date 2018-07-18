@@ -26,6 +26,6 @@ export class IexService {
   // GET /stock/{symbol}/quote
 
   getSymbolPrice(symbol: string): Observable<Number> {
-    return this.priceService.getPrice(symbol);
+    return this.priceService.getSymbolPrice(symbol);
   }
 }

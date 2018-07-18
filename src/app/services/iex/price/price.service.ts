@@ -16,7 +16,7 @@ export class PriceService {
     private http: HttpClient
   ) { }
 
-  getPrice(symbol: string): Observable<Number> {
+  getSymbolPrice(symbol: string): Observable<Number> {
     const url = this.priceUrl(symbol);
     return this.http.get<Number>(url)
             .pipe(

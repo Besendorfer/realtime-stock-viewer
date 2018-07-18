@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { IexService } from './services/iex.service';
+import { IexService } from './services/iex/iex.service';
 
 @Component({
   selector: 'app-root',
