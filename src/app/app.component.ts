@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { PriceService } from './services/price/price.service';
+import { IexService } from './services/iex.service';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +12,11 @@ export class AppComponent {
   price: Number;
 
   constructor(
-    private priceService: PriceService
+    private iexService: IexService
   ) { }
 
   ngOnInit(): void {
-    this.priceService.getPrice('MSFT')
+    this.iexService.getSymbolPrice('MSFT')
       .subscribe(price => this.price = price);
   }
 }
