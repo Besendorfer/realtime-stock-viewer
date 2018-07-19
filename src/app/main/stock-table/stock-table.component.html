@@ -1,44 +1,20 @@
 <div class="app-stock-table">
-  <p>
-    top item
-  </p>
-  <p>
-    stock-table works!
-  </p>
-  <p>
-    stock-table works!
-  </p>
-  <p>
-    stock-table works!
-  </p>
-  <p>
-    stock-table works!
-  </p>
-  <p>
-    stock-table works!
-  </p>
-  <p>
-    stock-table works!
-  </p>
-  <p>
-    stock-table works!
-  </p>
-  <p>
-    stock-table works!
-  </p>
-  <p>
-    stock-table works!
-  </p>
-  <p>
-    stock-table works!
-  </p>
-  <p>
-    stock-table works!
-  </p>
-  <p>
-    stock-table works!
-  </p>
-  <p>
-    bottom item
-  </p>
+  <table class="u-full-width">
+    <thead>
+      <tr>
+        <th>Symbol</th>
+        <th>Company Name</th>
+        <th>Stock Price</th>
+        <th>Market Cap</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let stock of stocks" (click)="goToStock(stock.symbol)">
+        <td>{{ stock.symbol }}</td>
+        <td>{{ stock.companyName }}</td>
+        <td>{{ stock.latestPrice | currency }}</td>
+        <td>{{ stock.marketCap | currency:'USD':'symbol':'1.0-0' }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

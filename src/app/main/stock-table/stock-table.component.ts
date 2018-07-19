@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { IexService } from '../../services/iex/iex.service';
+
+import { Quote } from '../../services/iex/interfaces/quote';
 
 @Component({
   selector: 'app-stock-table',
@@ -6,10 +11,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./stock-table.component.less']
 })
 export class StockTableComponent implements OnInit {
+  @Input() stocks: Quote[];
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private iexService: IexService
+  ) { }
 
   ngOnInit() {
+    const listName = this.route.snapshot.paramMap.get('listName');
+    this.getStocks(listName);
   }
 
+  getStocks(listName: string): void {
+    this.iexService.getTop10Stocks(listName)
+                   .subscribe(stocks => this.stocks = stocks);
+  }
+
+  goToStock(symbol: string): void {
+    this.router.navigate(['stock', symbol]);
+  }
 }
