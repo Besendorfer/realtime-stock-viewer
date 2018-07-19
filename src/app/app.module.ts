@@ -4,21 +4,23 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { TableComponent } from './main/table/table.component';
-import { CompanyComponent } from './main/company/company.component';
 import { FooterComponent } from './footer/footer.component';
+import { AppRoutingModule } from './/app-routing.module';
+import { StockTableComponent } from './main/stock-table/stock-table.component';
+import { StockComponent } from './main/stock/stock.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    TableComponent,
-    CompanyComponent,
-    FooterComponent
+    FooterComponent,
+    StockTableComponent,
+    StockComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

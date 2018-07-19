@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 
+// services
 import { IexService } from './services/iex/iex.service';
+
+// interfaces
 import { Company } from './services/iex/interfaces/company';
 
 @Component({
@@ -18,10 +21,5 @@ export class AppComponent {
   ) { }
 
   ngOnInit(): void {
-    this.iexService.getStockPrice('MSFT')
-      .subscribe(price => this.price = price);
-
-    this.iexService.getCompanyInfo('MSFT')
-      .subscribe(company => this.company = company);
   }
 }
