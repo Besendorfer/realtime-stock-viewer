@@ -9,6 +9,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { StockTableComponent } from './main/stock-table/stock-table.component';
 import { StockComponent } from './main/stock/stock.component';
 import { SearchBarComponent } from './header/search-bar/search-bar.component';
+import { IssueTypePipe } from './main/stock/pipes/issue-type.pipe';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { SearchBarComponent } from './header/search-bar/search-bar.component';
     FooterComponent,
     StockTableComponent,
     StockComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    IssueTypePipe
   ],
   imports: [
     BrowserModule,

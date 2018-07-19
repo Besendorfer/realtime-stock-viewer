@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+// rxjs
 import { forkJoin } from 'rxjs';
 
 // services
@@ -39,6 +40,18 @@ export class StockComponent implements OnInit {
           // and companyQuote goes into the second location
           this.stock.company = response[0];
           this.stock.quote = response[1];
+
+          for (const key of Object.keys(this.stock.company)) {
+            if (this.stock.company[key] == null || this.stock.company[key] == '') {
+              this.stock.company[key] = 'N/A';
+            }
+          }
+
+          for (const key of Object.keys(this.stock.quote)) {
+            if (this.stock.quote[key] == null || this.stock.quote[key] == '') {
+              this.stock.quote[key] = 'N/A';
+            }
+          }
         });
   }
 

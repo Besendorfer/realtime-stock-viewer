@@ -10,10 +10,10 @@
     </thead>
     <tbody>
       <tr *ngFor="let stock of stocks" (click)="goToStock(stock.symbol)">
-        <td>{{ stock.symbol }}</td>
-        <td>{{ stock.companyName }}</td>
-        <td>{{ stock.latestPrice | currency }}</td>
-        <td>{{ stock.marketCap | currency:'USD':'symbol':'1.0-0' }}</td>
+        <td>{{ stock?.symbol }}</td>
+        <td>{{ stock?.companyName }}</td>
+        <td>{{ stock?.latestPrice | currency }}</td>
+        <td>{{ stock?.marketCap | currency:'USD':'symbol':'1.0-0' }}</td>
       </tr>
     </tbody>
   </table>

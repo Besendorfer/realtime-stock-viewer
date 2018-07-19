@@ -1,5 +1,26 @@
 <div class="app-stock">
   <div class="title">
+    <h2 class="company-name">{{ stock?.company?.companyName }}</h2>
+    <div class="company-symbol"><strong>{{ stock?.company?.symbol }}</strong></div>
+    <div class="company-CEO"><strong>CEO:</strong> {{ stock?.company?.CEO }}</div>
+    <div class="company-description">{{ stock?.company?.description }}</div>
+    <div class="stock-price"><strong>Price:</strong> {{ stock?.quote?.latestPrice | currency }}</div>
+  </div>
 
+  <div class="info row">
+    <div class="left-side six columns">
+      <div class="company-website"><strong>Website:</strong> <a target="_blank" href="{{ stock?.company?.website }}"> {{ stock?.company?.website }}</a></div>
+      <div class="company-exchange"><strong>Exchange:</strong> {{ stock?.company?.exchange }}</div>
+      <div class="company-industry"><strong>Industry:</strong> {{ stock?.company?.industry }}</div>
+      <div class="company-sector"><strong>Sector:</strong> {{ stock?.company?.sector }}</div>
+      <div class="company-issueType"><strong>Issue Type:</strong> {{ stock?.company?.issueType | issueType }}</div>
+    </div>
+    <div class="right-side six columns">
+      <div class="stock-volume"><strong>Volume:</strong> {{ stock?.quote?.latestVolume | number }}</div>
+      <div class="stock-marketCap"><strong>Market Cap:</strong> {{ stock?.quote?.marketCap | currency:'USD':'symbol':'1.0-0' }}</div>
+      <div class="stock-peRatio"><strong>P/E Ratio:</strong> {{ stock?.quote?.peRatio }}</div>
+      <div class="stock-week52High"><strong>Week 52 high:</strong> {{ stock?.quote?.week52High | currency }}</div>
+      <div class="stock-week52Low"><strong>Week 52 low:</strong> {{ stock?.quote?.week52Low | currency }}</div>
+    </div>
   </div>
 </div>
