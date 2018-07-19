@@ -4,7 +4,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
+import { SearchBarComponent } from './header/search-bar/search-bar.component';
 import { FooterComponent } from './footer/footer.component';
+
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -12,6 +14,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         HeaderComponent,
+        SearchBarComponent,
         FooterComponent
       ],
       imports: [
