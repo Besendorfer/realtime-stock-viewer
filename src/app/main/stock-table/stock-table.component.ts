@@ -1,8 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+// services
 import { IexService } from '../../services/iex/iex.service';
 
+// interfaces
 import { Quote } from '../../services/iex/interfaces/quote';
 
 @Component({
