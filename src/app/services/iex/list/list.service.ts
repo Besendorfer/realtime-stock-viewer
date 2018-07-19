@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 // rxjs
-import { Observable, noop } from 'rxjs';
+import { Observable, noop, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
 // services
@@ -36,6 +36,10 @@ export class ListService {
    *   - iexpercent
    */
   getTop10Stocks(listName: string): Observable<Quote[]> {
+    if (!this.checkList(listName)) {
+      return of([]);
+    }
+
     const url = this.listUrl + '/' + listName;
     return this.http.get<Quote[]>(url)
                     .pipe(
@@ -44,5 +48,17 @@ export class ListService {
                              : noop()),
                       catchError(this.error.handleError<Quote[]>(`getTop10Stocks listName=${listName}`))
                     );
+  }
+
+  private checkList(listName: string): boolean {
+    const availableLists = [
+      'mostactive',
+      'gainers',
+      'losers',
+      'iexvolume',
+      'iexpercent'
+    ]
+
+    return availableLists.includes(listName);
   }
 }
