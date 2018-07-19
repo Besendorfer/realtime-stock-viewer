@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 // rxjs
 import { forkJoin } from 'rxjs';
@@ -20,6 +20,7 @@ export class StockComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private iexService: IexService
   ) { }
 
@@ -27,6 +28,7 @@ export class StockComponent implements OnInit {
     this.stock = <Stock>{};
     const symbol = this.route.snapshot.paramMap.get('symbol');
     this.getCompanyAndStockInfo(symbol);
+    console.log(this.stock);
   }
 
   getCompanyAndStockInfo(symbol: string) {
@@ -41,17 +43,28 @@ export class StockComponent implements OnInit {
           this.stock.company = response[0];
           this.stock.quote = response[1];
 
-          for (const key of Object.keys(this.stock.company)) {
-            if (this.stock.company[key] == null || this.stock.company[key] == '') {
-              this.stock.company[key] = 'N/A';
+          // ensure that the stock exists first
+          if (this.stock == null || this.stock.company == null || this.stock.quote == null) {
+            this.router.navigate(['/stocks']);
+          }
+
+          if (this.stock != null && this.stock.company != null) {
+            // TODO: put this in a helper class. Also determine if there is a functional way to do this
+            for (const key of Object.keys(this.stock.company)) {
+              if (this.stock.company[key] == null || this.stock.company[key] == '') {
+                this.stock.company[key] = 'N/A';
+              }
             }
           }
 
-          for (const key of Object.keys(this.stock.quote)) {
-            if (this.stock.quote[key] == null || this.stock.quote[key] == '') {
-              this.stock.quote[key] = 'N/A';
+          if (this.stock != null && this.stock.quote != null) {
+            for (const key of Object.keys(this.stock.quote)) {
+              if (this.stock.quote[key] == null || this.stock.quote[key] == '') {
+                this.stock.quote[key] = 'N/A';
+              }
             }
           }
+
         });
   }
 

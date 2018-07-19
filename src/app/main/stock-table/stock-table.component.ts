@@ -19,7 +19,13 @@ export class StockTableComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private iexService: IexService
-  ) { }
+  ) {
+      // Currently there isn't an easy way to force the router to reload to the same route,
+      // so this is here to trick the router to do what we want.
+      this.router.routeReuseStrategy.shouldReuseRoute = function(){
+        return false;
+      }
+   }
 
   ngOnInit() {
     const listName = this.route.snapshot.paramMap.get('listName');
@@ -28,10 +34,17 @@ export class StockTableComponent implements OnInit {
 
   getStocks(listName: string): void {
     this.iexService.getTop10Stocks(listName)
-                   .subscribe(stocks => this.stocks = stocks);
+                   .subscribe(stocks => {
+                     this.stocks = stocks;
+
+                     if (this.stocks.length == 0) {
+                      this.router.navigated = false;
+                      this.router.navigate(['/stocks']);
+                     }
+                    });
   }
 
   goToStock(symbol: string): void {
-    this.router.navigate(['stock', symbol]);
+    this.router.navigate(['/stock', symbol]);
   }
 }
