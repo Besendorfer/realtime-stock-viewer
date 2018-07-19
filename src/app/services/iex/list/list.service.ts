@@ -1,10 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+// rxjs
+import { Observable, noop } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 
-import { Constants } from '../iex.service.constants';
+// services
+import { ErrorService } from '../../error/error.service';
+
+// interfaces
 import { Quote } from '../interfaces/quote';
+
+// constants
+import { Constants } from '../iex.service.constants';
+import { GlobalConstants } from '../../../global.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -14,22 +23,26 @@ export class ListService {
   private listUrl = Constants.BASE_API_URL + '/stock/market/list';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private error: ErrorService
   ) { }
 
   /**
    * available lists:
-   *   - /mostactive
-   *   - /gainers
-   *   - /losers
-   *   - /iexvolume
-   *   - /iexpercent
+   *   - mostactive
+   *   - gainers
+   *   - losers
+   *   - iexvolume
+   *   - iexpercent
    */
-  getTop10Symbols(listName: string): Observable<Quote[]> {
+  getTop10Stocks(listName: string): Observable<Quote[]> {
     const url = this.listUrl + '/' + listName;
     return this.http.get<Quote[]>(url)
                     .pipe(
-                      // TODO: add error handling
+                      tap(_ => GlobalConstants.debug
+                             ? console.log(`attempted to retrieve the top 10 stocks for ${listName}`)
+                             : noop()),
+                      catchError(this.error.handleError<Quote[]>(`getTop10Stocks listName=${listName}`))
                     );
   }
 }

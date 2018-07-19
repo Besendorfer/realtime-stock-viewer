@@ -18,7 +18,7 @@ export class AppComponent {
   ) { }
 
   ngOnInit(): void {
-    this.iexService.getSymbolPrice('MSFT')
+    this.iexService.getStockPrice('MSFT')
       .subscribe(price => this.price = price);
 
     this.iexService.getCompanyInfo('MSFT')

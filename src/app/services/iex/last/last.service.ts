@@ -1,10 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+// rxjs
+import { Observable, noop } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 
-import { Constants } from '../iex.service.constants';
+// services
+import { ErrorService } from '../../error/error.service';
+
+// interfaces
 import { LightweightStockQuote } from '../interfaces/lightweight-stock-quote';
+
+// constants
+import { Constants } from '../iex.service.constants';
+import { GlobalConstants } from '../../../global.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +23,17 @@ export class LastService {
   private lastUrl = Constants.BASE_API_URL + '/tops/last';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private error: ErrorService
   ) { }
 
-  getAllSymbolsLastTradeData(): Observable<LightweightStockQuote[]> {
+  getAllStocksLastTradeData(): Observable<LightweightStockQuote[]> {
     return this.http.get<LightweightStockQuote[]>(this.lastUrl)
                     .pipe(
-                      // TODO: add error handling
+                      tap(_ => GlobalConstants.debug
+                             ? console.log('attempted to retrieve the last trade data for all stocks')
+                             : noop()),
+                      catchError(this.error.handleError<LightweightStockQuote[]>(`getAllStocksLastTradeData`))
                     );
   }
 
@@ -29,7 +42,10 @@ export class LastService {
     const csvUrl = this.lastUrl + '?symbols=' + symbols.map(symbol => encodeURIComponent(symbol)).join(',');
     return this.http.get<LightweightStockQuote[]>(csvUrl)
                     .pipe(
-                      // TODO: add error handling
+                      tap(_ => GlobalConstants.debug
+                             ? console.log(`attempted to retrieve the last trade data for ${symbols.join(', ')}`)
+                             : noop()),
+                      catchError(this.error.handleError<LightweightStockQuote[]>(`getLastTradeData symbols=${symbols.join(', ')}`))
                     );
   }
 }
