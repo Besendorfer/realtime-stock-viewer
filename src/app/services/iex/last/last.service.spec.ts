@@ -78,27 +78,9 @@ describe('LastService', () => {
 
   it('should handle null values', inject([HttpTestingController, LastService],
       (httpMock: HttpTestingController, lastService: LastService) => {
-    mockLightweightStockQuoteArray = [
-      {
-        symbol: null,
-        price: 111.76,
-        size: 5,
-        time: null
-      },
-      {
-        symbol: "FB",
-        price: 121.41,
-        size: 100,
-        time: 1480446908666
-      },
-      {
-        symbol: "AIG+",
-        price: 21.52,
-        size: 100,
-        time: 1480446206461
-      },
-      null
-    ];
+    mockLightweightStockQuoteArray[0].symbol = null;
+    mockLightweightStockQuoteArray[0].time = null;
+    mockLightweightStockQuoteArray.push(null);
 
     lastService.getLastTradeData(['SNAP','fb','AIG+']).subscribe(
       lightweightStockQuoteArray => expect(lightweightStockQuoteArray)

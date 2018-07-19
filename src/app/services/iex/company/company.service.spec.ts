@@ -8,20 +8,15 @@ import { CompanyService } from './company.service';
 import { Company } from '../interfaces/company';
 
 describe('CompanyService', () => {
+  let mockCompany: Company;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [CompanyService]
     });
-  });
 
-  it('should be created', inject([CompanyService], (service: CompanyService) => {
-    expect(service).toBeTruthy();
-  }));
-
-  it('should get the expected company data for MSFT', inject([HttpTestingController, CompanyService],
-      (httpMock: HttpTestingController, companyService: CompanyService) => {
-    const mockCompany: Company = {
+    mockCompany = {
       symbol: 'MSFT',
       companyName: 'Microsoft Corporation',
       exchange: 'Nasdaq Global Select',
@@ -31,8 +26,15 @@ describe('CompanyService', () => {
       CEO: 'Satya Nadella',
       issueType: 'cs',
       sector: 'Technology'
-    }
+    };
+  });
 
+  it('should be created', inject([CompanyService], (service: CompanyService) => {
+    expect(service).toBeTruthy();
+  }));
+
+  it('should get the expected company data for MSFT', inject([HttpTestingController, CompanyService],
+      (httpMock: HttpTestingController, companyService: CompanyService) => {
     companyService.getCompanyInfo('MSFT').subscribe(
       company => expect(company).toEqual(mockCompany)
     );
@@ -47,17 +49,8 @@ describe('CompanyService', () => {
 
   it('should handle null values', inject([HttpTestingController, CompanyService],
       (httpMock: HttpTestingController, companyService: CompanyService) => {
-    const mockCompany: Company = {
-      symbol: 'MSFT',
-      companyName: null,
-      exchange: 'Nasdaq Global Select',
-      industry: 'Application Software',
-      website: 'http://www.microsoft.com',
-      description: 'Microsoft Corp is a technology company...',
-      CEO: 'Satya Nadella',
-      issueType: 'cs',
-      sector: null
-    }
+    mockCompany.companyName = null;
+    mockCompany.sector = null;
 
     companyService.getCompanyInfo('MSFT').subscribe(
       company => expect(company).toEqual(mockCompany)
