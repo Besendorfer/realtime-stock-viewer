@@ -8,6 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { StockTableComponent } from './main/stock-table/stock-table.component';
 import { StockComponent } from './main/stock/stock.component';
+import { SearchBarComponent } from './header/search-bar/search-bar.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { StockComponent } from './main/stock/stock.component';
     HeaderComponent,
     FooterComponent,
     StockTableComponent,
-    StockComponent
+    StockComponent,
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,
