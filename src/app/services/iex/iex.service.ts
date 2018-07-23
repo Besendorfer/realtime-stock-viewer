@@ -11,6 +11,7 @@ import { StatsService } from './stats/stats.service';
 import { LogoService } from './logo/logo.service';
 import { QuoteService } from './quote/quote.service';
 import { ListService } from './list/list.service';
+import { RefDataService } from './ref-data/ref-data.service';
 
 // interfaces
 import { Company } from './interfaces/company';
@@ -18,6 +19,7 @@ import { LightweightStockQuote } from './interfaces/lightweight-stock-quote';
 import { Stats } from './interfaces/stats';
 import { Logo } from './interfaces/logo';
 import { Quote } from './interfaces/quote';
+import { RefData } from './interfaces/ref-data';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +33,8 @@ export class IexService {
     private statsService: StatsService,
     private logoService: LogoService,
     private quoteService: QuoteService,
-    private listService: ListService
+    private listService: ListService,
+    private refDataService: RefDataService
   ) { }
 
   // List of more services to potentially use
@@ -107,5 +110,12 @@ export class IexService {
    */
   getTop10Stocks(listName: string): Observable<Quote[]> {
     return this.listService.getTop10Stocks(listName);
+  }
+
+  /**
+   * Gets reference data for all symbols
+   */
+  getRefData(): Observable<RefData[]> {
+    return this.refDataService.getRefData();
   }
 }
