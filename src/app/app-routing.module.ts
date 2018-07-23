@@ -5,9 +5,10 @@ import { StockTableComponent } from './main/stock-table/stock-table.component';
 import { StockComponent } from './main/stock/stock.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/stocks/iexvolume', pathMatch: 'full' },
-  { path: 'stocks', redirectTo: '/stocks/iexvolume', pathMatch: 'full' },
-  { path: 'stocks/:listName', component: StockTableComponent }, // eventually it would be nice to make this /stocks/:page for pagination
+  { path: '', redirectTo: '/stocks/all/1', pathMatch: 'full' },
+  { path: 'stocks', redirectTo: '/stocks/all/1', pathMatch: 'full' },
+  { path: 'stocks/:listName', redirectTo: '/stocks/:listName/1', pathMatch: 'full' },
+  { path: 'stocks/:listName/:page', component: StockTableComponent },
   { path: 'stock/:symbol', component: StockComponent }
 ]
 
